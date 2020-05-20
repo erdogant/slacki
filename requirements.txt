@@ -1,0 +1,9 @@
+#conda create -n env_slacki python=3.6
+#conda activate env_slacki
+#conda install spyder
+
+wget
+matplotlib 
+numpy 
+pandas 
+tqdm
