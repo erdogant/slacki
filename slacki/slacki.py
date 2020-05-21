@@ -25,7 +25,7 @@ class slacki():
         channel = get_channel(channel)
         try:
             sc = Slacker(token)
-            check_connection._slack(sc)
+            # check_connection._slack(sc)
         except Exception as e:
             if verbose>1: print(('[slacki] >ERROR: Could not import token: [%s]' % (str(e))))
 
