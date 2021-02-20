@@ -33,7 +33,7 @@ def _internet(url='www.google.com', return_status=False, verbose=3):
 
 
 #%% Check the connection with slack. Do this only once otherwise it will result in to many requests error
-def _slack(sc, return_status=False):
+def _slack(sc, legacy, return_status=False, verbose=3):
     # Check connection
     counter=1
     status=False
@@ -41,10 +41,14 @@ def _slack(sc, return_status=False):
 
     while status is False:
         try:
-            getconnection=sc.rtm.connect()
-            status = getconnection.successful
+            if legacy:
+                getconnection=sc.rtm.connect()
+                status = getconnection.successful
+            else:
+                # TODO: THE NEW SLACK-CLIENT
+                status=True
         except:
-            print('[slacki] >ERROR: [%s] No Slack (aka internet) connection? Trying again in 60 sec.. [attempt %s]' %(_now().strftime('%d-%m-%Y %H:%M'), counter))
+            print('[slacki] >Error: [%s] No Slack (aka internet) connection? Trying again in 60 sec.. [attempt %s]' %(_now().strftime('%d-%m-%Y %H:%M'), counter))
             status=False
             time.sleep(sleepinsec)
             counter=counter+1

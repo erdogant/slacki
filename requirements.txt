@@ -3,7 +3,6 @@
 #conda install spyder
 
 wget
-matplotlib 
 numpy 
-pandas 
-tqdm
+slacker # old
+SlackClient==1.3.2 # new
