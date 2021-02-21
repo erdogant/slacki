@@ -1,10 +1,5 @@
-#--------------------------------------------------------------------------
-# Name        : slacki.py
-# Author      : E.Taskesen
-# Contact     : erdogant@gmail.com
-#--------------------------------------------------------------------------
+"""Python package slacki for reading and posting in slack groups."""
 
-# Libraries
 import slacki.utils.check_connection as check_connection
 from datetime import datetime
 from slacker import Slacker
@@ -13,6 +8,7 @@ import traceback
 import numpy as np
 import pandas as pd
 import os
+
 
 # %%
 class slacki():
@@ -55,13 +51,29 @@ class slacki():
         self.response_time = response_time
         self.verbose = verbose
         self.channel_id = self.get_channels(channel_name=channel, create=True, verbose=self.verbose)[1]
-    
+
     # Get channeld id
     def get_channels(self, channel_name=None, create=False, verbose=3):
+        """Get all channels and also check whether channel_name exits and create if specified.
+
+        Parameters
+        ----------
+        channel_name : str
+            Lookup the channel name.
+        create : Bool (default: False)
+            Create channel_name if not yet exits.
+        verbose : int, optional
+            Verbosity. The default is 3.
+
+        Returns
+        -------
+        None.
+
+        """
         channels = None
         channel_id = None
         df = None
-        
+
         if self.legacy:
             channel_id = self.sc.channels.get_channel_id(channel_name[1:])
         else:
@@ -103,7 +115,7 @@ class slacki():
 
         # Retrieve posts
     def retrieve_posts(self, date_from=None, date_to=None, n=None, retrieve_names=False, verbose=3):
-        """Retrieve posts
+        """Retrieve posts.
 
         Parameters
         ----------
@@ -121,7 +133,7 @@ class slacki():
         Returns
         -------
         list of dict containing posts.
-        
+
         References
         ----------
         * https://api.slack.com/methods/conversations.history
@@ -174,8 +186,9 @@ class slacki():
                             for GETid in out['user_id']:
                                 GETnames.append(np.array(users['realname'])[np.isin(users['id'], GETid)][0])
                             out['realname'] = GETnames
-        except:
+        except Exception as e:
             if verbose>=1: print(traceback.print_exc())
+            if verbose>=1: print(('[slacki] >ERROR: [%s]' % (str(e))))
 
         return(out)
 
@@ -232,8 +245,9 @@ class slacki():
         Returns
         -------
         status : bool
-        
+
         References
+        ----------
         * https://api.slack.com/scopes/chat:write
             * chat.delete - Deletes a message.
             * chat.deleteScheduledMessage - Deletes a pending scheduled message from the queue.
@@ -285,7 +299,7 @@ class slacki():
         Returns
         -------
         status : bool
-        
+
         References
         ----------
         * https://api.slack.com/scopes/files:write
@@ -324,7 +338,7 @@ class slacki():
 
     # Post message in channel
     def get_users(self, legacy=False, verbose=3):
-        """Retrieve user information for the slack-group
+        """Retrieve user information for the slack-group.
 
         Parameters
         ----------
@@ -343,8 +357,8 @@ class slacki():
             # Find all users
             if legacy:
                 getusers = self.sc.users.list().body
-                users['realname'] = list(map(lambda x:x['real_name'], getusers['members']))
-                users['name'] = list(map(lambda x:x['name'], getusers['members']))
+                users['realname'] = list(map(lambda x: x['real_name'], getusers['members']))
+                users['name'] = list(map(lambda x: x['name'], getusers['members']))
                 for u in getusers['members']:
                     # print(f'User: {u["name"]}, Real Name: {u["real_name"]}, Time Zone: {u["tz_label"]}.')
                     if verbose>=3: print('User: %s, Real Name: %s, Time Zone: %s.' % (u['name'], u['real_name'], u['tz_label']))
@@ -375,9 +389,27 @@ class slacki():
             if verbose>=1: print(('[slacki] >ERROR: [%s]' % (str(ex))))
         return(users)
 
-
-    # %% Listen
     def listen(self, date_from=None, date_to=None, n=None, response_time=None, verbose=3):
+        """Listen to the group and perform an action.
+
+        Parameters
+        ----------
+        date_from : str: "%Y-%m-%d %H:%M:%S"
+            Date From
+        date_to : str: "%Y-%m-%d %H:%M:%S"
+            Date To
+        n : int, default: None
+            Retrieve the n latest posts. If set to default=None, all is retrieved.
+        response_time : int, (Default: None)
+            Response time in seconds.
+        verbose : int, optional
+            Verbosity. The default is 3.
+
+        Returns
+        -------
+        None.
+
+        """
         if response_time is None: response_time = self.response_time
         # Retrieve posts
         results = self.retrieve_posts(date_from=date_from, date_to=date_to, n=n, verbose=verbose)
@@ -411,9 +443,27 @@ class slacki():
             print('Do some stuff')
         return tasks
 
+
 # %% Create channel
 def make_channel(sc, channel, legacy=False, is_private=False, verbose=3):
-    """Create channel."""
+    """Create channel.
+
+    Parameters
+    ----------
+    sc : Object
+        slacki object.
+    channel : str
+        Name of the channel.
+    legacy : Bool (Default: False)
+        Apply legacy action (when True).
+    verbose : int, optional
+        Verbosity. The default is 3.
+
+    Returns
+    -------
+    None.
+
+    """
     try:
         if legacy:
             sc.channels.create(channel[1:])
@@ -427,12 +477,26 @@ def make_channel(sc, channel, legacy=False, is_private=False, verbose=3):
         if verbose>=3: print('[slacki] >Channel [%s] is succesfull created' % (channel))
     except Exception as e:
         if verbose>=3: print('[slacki] >Channel [%s] already exists.' % (channel))
+        if verbose>=1: print(('[slacki] >ERROR: [%s]' % (str(e))))
+        if verbose>=1: print(traceback.print_exc())
 
 
 # %% Post message in channel
 def get_channel(channel):
+    """Get the channel name.
+
+    Parameters
+    ----------
+    channel : str
+        Name of the channel.
+
+    Returns
+    -------
+    None.
+
+    """
     if (channel is None) or (channel=='') or (len(channel)<3): raise Exception('Channel should be a valid name; can not be None or "" or less then 3 chars.')
     if channel[0]!='#':
         channel = '#' + channel
-    
+    # Return
     return(channel)
