@@ -16,13 +16,6 @@
 
 * Slacki is Python package for reading and posting in slack groups.
 
-### Contents
-- [Installation](#-installation)
-- [Contribute](#-contribute)
-- [Citation](#-citation)
-- [Maintainers](#-maintainers)
-- [License](#-copyright)
-
 ### Installation
 * Install slacki from PyPI (recommended). slacki is compatible with Python 3.6+ and runs on Linux, MacOS X and Windows. 
 * A new environment can be created as following:
