@@ -22,26 +22,13 @@
 * A new environment can be created as following:
 
 ```python
-conda create -n env_slacki python=3.7
+conda create -n env_slacki python=3.8
 conda activate env_slacki
 ```
 
 ```bash
 pip install slacki
 ```
-
-* Alternatively, install slacki from the GitHub source:
-```bash
-# Directly install from github source
-pip install -e git://github.com/erdogant/slacki.git@0.1.0#egg=master
-pip install git+https://github.com/erdogant/slacki#egg=master
-
-# By cloning
-pip install git+https://github.com/erdogant/slacki
-git clone https://github.com/erdogant/slacki.git
-cd slacki
-python setup.py install
-```  
 
 #### Import slacki package
 ```python
