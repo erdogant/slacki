@@ -18,9 +18,12 @@ Example
 -------
 >>> from slacki import slacki
 >>> sc = slacki(channel='new_channel', token='xoxp-123234234235-123234234235-123234234235-adedce74748c3844747aed48499bb')
->>> 
+>>>
+>>> # Get some info about the channels
+>>> channels = sc.get_channels()
+>>>
 >>> # Get some info about the users
->>> users = sc.info()
+>>> users = sc.get_users()
 >>> 
 >>> # Send messages
 >>> queries=['message 1','message 2']
@@ -33,7 +36,8 @@ Example
 >>> sc.post_file(file='./data/slack.png', title='Nu ook met figuren uploaden :)')
 >>> 
 >>> # listen (retrieve only last message)
->>> out = sc.retrieve_posts(n=3)
+>>> out = sc.retrieve_posts(n=3, retrieve_names=True)
+>>>
 
 References
 ----------
