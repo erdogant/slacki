@@ -3,8 +3,14 @@
 [![Python](https://img.shields.io/pypi/pyversions/slacki)](https://img.shields.io/pypi/pyversions/slacki)
 [![PyPI Version](https://img.shields.io/pypi/v/slacki)](https://pypi.org/project/slacki/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/erdogant/slacki/blob/master/LICENSE)
-[![Downloads](https://pepy.tech/badge/slacki)](https://pepy.tech/project/slacki)
 [![Coffee](https://img.shields.io/badge/coffee-black-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)
+[![Github Forks](https://img.shields.io/github/forks/erdogant/slacki.svg)](https://github.com/erdogant/slacki/network)
+[![GitHub Open Issues](https://img.shields.io/github/issues/erdogant/slacki.svg)](https://github.com/erdogant/slacki/issues)
+[![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Downloads](https://pepy.tech/badge/slacki/month)](https://pepy.tech/project/slacki/)
+[![Downloads](https://pepy.tech/badge/slacki)](https://pepy.tech/project/slacki)
+
+
 
 	Star it if you like it!
 
