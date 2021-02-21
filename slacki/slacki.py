@@ -5,7 +5,7 @@
 #--------------------------------------------------------------------------
 
 # Libraries
-import utils.check_connection as check_connection
+import slacki.utils.check_connection as check_connection
 from datetime import datetime
 from slacker import Slacker
 from slackclient import SlackClient
