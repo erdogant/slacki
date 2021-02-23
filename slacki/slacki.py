@@ -50,7 +50,7 @@ class slacki():
         self.token = token
         self.response_time = response_time
         self.verbose = verbose
-        self.channel_id = self.get_channels(channel_name=channel, create=True, verbose=self.verbose)[1]
+        self.channel_id = self.get_channels(channel_name=channel, create=False, verbose=self.verbose)[1]
 
     # Get channeld id
     def get_channels(self, channel_name=None, create=False, verbose=3):
@@ -183,8 +183,13 @@ class slacki():
                             # Retrieve all user-names with ids
                             users = self.get_users(verbose=0)
                             GETnames = []
-                            for GETid in out['user_id']:
-                                GETnames.append(np.array(users['realname'])[np.isin(users['id'], GETid)][0])
+                            if users.get('realname', None) is not None:
+                                for GETid in out['user_id']:
+                                    Iloc = np.isin(users['id'], GETid)
+                                    if np.any(Iloc):
+                                        GETnames.append(np.array(users['realname'])[Iloc][0])
+                                    else:
+                                        GETnames.append(None)
                             out['realname'] = GETnames
         except Exception as e:
             if verbose>=1: print(traceback.print_exc())
