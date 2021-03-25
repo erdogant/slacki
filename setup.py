@@ -13,7 +13,7 @@ else:
 with open("README.md", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
-     install_requires=['slacker','SlackClient','numpy','wget'],
+     install_requires=['slacker','SlackClient==1.3.2','numpy','wget'],
      python_requires='>=3',
      name='slacki',
      version=new_version,
