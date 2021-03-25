@@ -14,7 +14,7 @@ import os
 class slacki():
     """Python package slacki for reading and posting in slack groups."""
 
-    def __init__(self, channel=None, token=None, response_time=60, legacy=False, verbose=3):
+    def __init__(self, channel=None, token=None, response_time=60, legacy=False, create_channel=False, verbose=3):
         """Initialize slacki with user-defined parameters.
 
         Parameters
@@ -24,9 +24,11 @@ class slacki():
         token : str
             Slack token..
         response_time : TYPE, optional
-            DESCRIPTION. The default is 60.
+            Time for response. The default is 60.
         legacy : Bool (Default=False)
             When True, use the legacy version of slack-control.
+        create_channel : Bool (Default=False)
+            When True, Channel is created.
         verbose : int, optional
             Verbosity. The default is 3.
 
@@ -50,7 +52,7 @@ class slacki():
         self.token = token
         self.response_time = response_time
         self.verbose = verbose
-        self.channel_id = self.get_channels(channel_name=channel, create=False, verbose=self.verbose)[1]
+        self.channel_id = self.get_channels(channel_name=channel, create=create_channel, verbose=self.verbose)[1]
 
     # Get channeld id
     def get_channels(self, channel_name=None, create=False, verbose=3):
