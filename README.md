@@ -8,14 +8,16 @@
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![Downloads](https://pepy.tech/badge/slacki/month)](https://pepy.tech/project/slacki/)
 [![Downloads](https://pepy.tech/badge/slacki)](https://pepy.tech/project/slacki)
-[![BuyMeCoffee](https://img.shields.io/badge/buymea-coffee-yellow.svg)](https://www.buymeacoffee.com/erdogant)
+<!---[![BuyMeCoffee](https://img.shields.io/badge/buymea-coffee-yellow.svg)](https://www.buymeacoffee.com/erdogant)-->
 <!---[![Coffee](https://img.shields.io/badge/coffee-black-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)-->
 
 
+``Slacki`` is Python package for reading and posting in slack groups.
 
-	Star it if you like it!
+# 
+**Star this repo if you like it! ⭐️**
+#
 
-* Slacki is Python package for reading and posting in slack groups.
 
 ### Installation
 * Install slacki from PyPI (recommended). slacki is compatible with Python 3.6+ and runs on Linux, MacOS X and Windows. 
